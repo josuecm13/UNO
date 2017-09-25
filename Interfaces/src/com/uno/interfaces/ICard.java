@@ -9,7 +9,7 @@ import java.rmi.RemoteException;
 
 public interface ICard extends Remote {
 
-    AbsCard generateCard(String username) throws Exception;
+    AbsCard generateCard(int userID) throws Exception;
 
     boolean validateMove(AbsCard card) throws RemoteException;
 

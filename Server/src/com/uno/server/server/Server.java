@@ -12,6 +12,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 
 /**
@@ -21,20 +22,21 @@ import java.util.Map;
 public class Server extends UnicastRemoteObject implements IServer, Serializable{
 
     private ArrayList<Player> players;
-    private Map<String, ArrayList<AbsCard>> playerCards;
+    private Map<Integer, ArrayList<AbsCard>> playerCards;
     private AbsCard topCard;
     private static final long serialVersionUID = 1L;
+    private int playerID = new Random().nextInt();
 
     protected Server() throws RemoteException {
         players = new ArrayList<>();
-        playerCards = new HashMap<String, ArrayList<AbsCard>>();
+        playerCards = new HashMap<>();
     }
 
     //ICard
     @Override
-    public AbsCard generateCard(String username) throws Exception {
+    public AbsCard generateCard(int clientID) throws Exception {
         AbsCard card = CardFactory.getCard();
-        addToDraw(card,username);
+        addToDraw(card,clientID);
         return card;
     }
 
@@ -74,28 +76,30 @@ public class Server extends UnicastRemoteObject implements IServer, Serializable
     }
 
     @Override
-    public void addPlayer(String ip, String username, String password) throws RemoteException {
+    public int addPlayer(String ip, String username, String password) throws RemoteException {
         Player player = new Player(username,ip);
         players.add(player);
-        playerCards.put(username, new ArrayList<AbsCard>());
+        ++playerID;
+        playerCards.put(playerID, new ArrayList<>());
+        return playerID;
     }
 
-    private void addToDraw(AbsCard card, String username) throws Exception, RemoteException{
-        if(!playerCards.containsKey(username)) {
-            throw new Exception("No existe el usuario");
+    private void addToDraw(AbsCard card, int clientID) throws RemoteException{
+        if(!playerCards.containsKey(clientID)) {
+            throw new RemoteException("No existe el usuario");
         }
-        ArrayList<AbsCard> draw = playerCards.get(username);
+        ArrayList<AbsCard> draw = playerCards.get(clientID);
         draw.add(card);
-        playerCards.replace(username,draw);
+        playerCards.replace(clientID,draw);
     }
 
     @Override
-    public String getDraw(String username) throws Exception,RemoteException {
-        if(!playerCards.containsKey(username)) {
-            throw new Exception("No existe el usuario");
+    public String getDraw(int clientID) throws RemoteException {
+        if(!playerCards.containsKey(clientID)) {
+            throw new RemoteException();
         }
         String result = "";
-        ArrayList<AbsCard> draw = playerCards.get(username);
+        ArrayList<AbsCard> draw = playerCards.get(clientID);
         for (AbsCard card: draw) {
             result += "Numero " + card.getNumber() +"\n"
                     + "Color " + card.getColor() +"\n\n";

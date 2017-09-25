@@ -5,6 +5,6 @@ import java.rmi.RemoteException;
 
 public interface IClient extends Serializable {
 
-    String getDraw(String username) throws RemoteException, Exception;
+    String getDraw(int clientID) throws RemoteException, Exception;
 
 }

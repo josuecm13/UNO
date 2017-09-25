@@ -10,7 +10,7 @@ public interface IServer extends ICard,IClient {
 
     String getPlayers() throws RemoteException;
 
-    void addPlayer(String ip, String username, String password) throws RemoteException;
+    int addPlayer(String ip, String username, String password) throws RemoteException;
 
 
 }

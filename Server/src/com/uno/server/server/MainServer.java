@@ -15,7 +15,7 @@ public class MainServer {
 
     private MainServer() {
         try {
-            IServer i = new Server();
+            IServer i =   new Server();
             //Naming.rebind("rmi//localhost//server", i);
             System.out.println("Server creado");
         } catch (Exception e) {
@@ -34,8 +34,6 @@ public class MainServer {
             switch (opt){
                 case 0:
                     System.out.println(server.getPlayers());
-                    break;
-                case 1:
                     break;
             }
         }while (opt != 1);
