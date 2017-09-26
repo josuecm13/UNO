@@ -1,7 +1,9 @@
-package gui;
+package com.uno.gui;
 
-import card.AbsCard;
-import card.CardFactory;
+
+import com.uno.interfaces.AbsCard;
+import com.uno.server.card.CardFactory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,7 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-import static gui.CardManager.placeDeck;
+import static com.uno.gui.CardManager.placeDeck;
 
 
 public class MainLayout extends GameView{
@@ -31,9 +33,9 @@ public class MainLayout extends GameView{
         JFrame window = new JFrame("UNO");
         ImageIcon img_icon = new ImageIcon("res/uno_icon.png");
         window.setIconImage(img_icon.getImage());
-        window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //window.setExtendedState(JFrame.MAXIMIZED_BOTH);
         window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        //window.setResizable(false);
+        window.setResizable(false);
         window.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent windowEvent) {
                 if (JOptionPane.showConfirmDialog(window, "Desea cerrar la aplicacion?", "Cerrar programa", JOptionPane.YES_NO_OPTION,

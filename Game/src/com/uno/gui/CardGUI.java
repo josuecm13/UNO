@@ -1,9 +1,10 @@
-package gui;
+package com.uno.gui;
 
-import card.AbsCard;
 
-import java.awt.*;
+import com.uno.interfaces.AbsCard;
+
 import javax.swing.*;
+import java.awt.*;
 
 
 public class CardGUI {

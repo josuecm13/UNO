@@ -1,4 +1,4 @@
-package card;
+package com.uno.interfaces;
 
 /**
  * Created by ${gaboq} on 20/9/2017.
@@ -12,12 +12,11 @@ public abstract class AbsCard {
 
     protected String power;
 
-
-    protected void setNumber(int number) {
+    public void setNumber(int number) {
         this.number = number;
     }
 
-    protected void setColor(int color) {
+    public void setColor(int color) {
         this.color = color;
     }
 

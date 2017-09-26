@@ -17,7 +17,7 @@ public class CardFactory {
 
 
     public static void setCardProperties(AbsCard card){
-        card.setColor(generateRandom(4));
+        card.setColor(generateRandom(3));
         if(!card.isSpecial()) {
             card.setNumber(generateRandom(9));
         }

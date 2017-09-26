@@ -8,9 +8,6 @@ public class WildCard extends SpecialCard{
     @Override
     public void setColor(int color) {}
 
-    @Override
-    public boolean isWild(){return true;}
-
-    public WildCard(){color = 5;}
+    public WildCard(){color = 4;}
 
 }

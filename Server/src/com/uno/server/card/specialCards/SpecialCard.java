@@ -23,10 +23,15 @@ public class SpecialCard extends AbsCard {
             card = new Reverse();
         } else if(rand <= 75) {
             card = new DrawTwo();
-        } else if(rand <= 88) {
-            card = new DrawFour();
         } else {
-            card = new Wild();
+            WildCard wild;
+            if (rand <= 88) {
+                wild = new Wild();
+                card = wild;
+            } else {
+                wild = new DrawFour();
+                card = wild;
+            }
         }
         return card;
     }

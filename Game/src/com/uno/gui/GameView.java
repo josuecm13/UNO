@@ -1,12 +1,14 @@
-package gui;
+package com.uno.gui;
 
-import card.AbsCard;
+
+import com.uno.interfaces.AbsCard;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static gui.CardManager.setCardImage;
+import static com.uno.gui.CardManager.setCardImage;
+
 
 /**
  * Created by ${gaboq} on 25/9/2017.
@@ -16,7 +18,7 @@ public class GameView {
 
     public static ImageIcon generateCardIcon(AbsCard card) {
         ImageIcon img = new ImageIcon(setCardImage(card));
-        Image resizedImg = MainLayout.getScaledImage(img.getImage(), 156, 229);
+        Image resizedImg = getScaledImage(img.getImage(), 156, 229);
         img = new ImageIcon(resizedImg);
         return img;
     }

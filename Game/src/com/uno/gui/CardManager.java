@@ -1,13 +1,13 @@
-package gui;
+package com.uno.gui;
 
-import card.AbsCard;
-import card.CardFactory;
+import com.uno.interfaces.AbsCard;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+
 
 /**
  * Created by ${gaboq} on 24/9/2017.
@@ -26,7 +26,7 @@ public class CardManager extends JComponent implements MouseListener {
     private CardGUI card;
     private CardGUI currentCard = null;
 
-    CardManager(ArrayList<CardGUI> cards, CardGUI cardAux) {
+    public CardManager(ArrayList<CardGUI> cards, CardGUI cardAux) {
         deck = cards;
         card = cardAux;
         setPreferredSize(new Dimension(TABLE_WIDTH, TABLE_HEIGHT));
