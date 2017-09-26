@@ -1,5 +1,7 @@
 package com.uno.interfaces;
 
+import com.uno.cards.AbsCard;
+
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 

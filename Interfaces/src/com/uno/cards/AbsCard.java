@@ -1,7 +1,7 @@
-package com.uno.interfaces;
+package com.uno.cards;
 
-/**
- * Created by ${gaboq} on 20/9/2017.
+/*
+ * Created by ${gaboq} on 26/9/2017.
  */
 
 public abstract class AbsCard {
@@ -36,6 +36,8 @@ public abstract class AbsCard {
         return false;
     }
 
-
+    public boolean isWild() {
+        return false;
+    }
 
 }

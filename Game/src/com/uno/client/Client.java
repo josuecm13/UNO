@@ -1,6 +1,6 @@
 package com.uno.client;
 
-import com.uno.interfaces.AbsCard;
+import com.uno.cards.AbsCard;
 import com.uno.interfaces.Gui;
 import com.uno.interfaces.IServer;
 

@@ -1,8 +1,8 @@
 package com.uno.server.server;
 
-import com.uno.interfaces.AbsCard;
+import com.uno.cards.AbsCard;
+import com.uno.cards.CardFactory;
 import com.uno.interfaces.IServer;
-import com.uno.server.card.CardFactory;
 import com.uno.server.players.Player;
 
 import javax.activity.InvalidActivityException;

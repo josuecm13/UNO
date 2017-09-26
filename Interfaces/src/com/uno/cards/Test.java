@@ -1,6 +1,5 @@
-package com.uno.server.card;
+package com.uno.cards;
 
-import com.uno.interfaces.AbsCard;
 
 /**
  * Created by ${gaboq} on 21/9/2017.

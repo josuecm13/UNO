@@ -1,4 +1,4 @@
-package com.uno.server.card.specialCards;
+package com.uno.cards.special;
 
 /**
  * Created by ${gaboq} on 21/9/2017.

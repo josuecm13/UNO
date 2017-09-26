@@ -1,11 +1,8 @@
-package com.uno.server.card.specialCards;
+package com.uno.cards.special;
 
-import com.uno.interfaces.AbsCard;
-import com.uno.server.card.CardFactory;
 
-/**
- * Created by ${gaboq} on 21/9/2017.
- */
+import com.uno.cards.AbsCard;
+import com.uno.cards.CardFactory;
 
 public class SpecialCard extends AbsCard {
 

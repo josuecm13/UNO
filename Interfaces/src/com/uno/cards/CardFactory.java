@@ -1,8 +1,8 @@
-package com.uno.server.card;
+package com.uno.cards;
 
-import com.uno.interfaces.AbsCard;
-import com.uno.server.card.numberCards.NumberCard;
-import com.uno.server.card.specialCards.SpecialCard;
+
+import com.uno.cards.number.NumberCard;
+import com.uno.cards.special.SpecialCard;
 
 /**
  * Created by ${gaboq} on 21/9/2017.

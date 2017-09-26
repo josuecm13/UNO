@@ -1,7 +1,7 @@
 package com.uno.gui;
 
 
-import com.uno.interfaces.AbsCard;
+import com.uno.cards.AbsCard;
 
 import javax.swing.*;
 import java.awt.*;

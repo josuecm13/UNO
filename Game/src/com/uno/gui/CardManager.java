@@ -1,6 +1,6 @@
 package com.uno.gui;
 
-import com.uno.interfaces.AbsCard;
+import com.uno.cards.AbsCard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -111,7 +111,7 @@ public class CardManager extends JComponent implements MouseListener {
         int height = getHeight();
         g.setColor(BACKGROUND_COLOR);
         g.fillRect(0, 0, width, height);
-
+        //ard.draw(g, this);
         for (CardGUI c : deck) {
             c.draw(g, this);
         }
@@ -142,4 +142,5 @@ public class CardManager extends JComponent implements MouseListener {
     public void mouseExited(MouseEvent e) {
         currentCard = null;
     }
+
 }

@@ -1,8 +1,8 @@
 package com.uno.gui;
 
 
-import com.uno.interfaces.AbsCard;
-import com.uno.server.card.CardFactory;
+import com.uno.cards.AbsCard;
+import com.uno.cards.CardFactory;
 
 import javax.swing.*;
 import java.awt.*;
