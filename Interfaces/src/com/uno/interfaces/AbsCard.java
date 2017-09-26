@@ -1,12 +1,10 @@
-package com.uno.interfaces;
-
-import java.io.Serializable;
+package card;
 
 /**
  * Created by ${gaboq} on 20/9/2017.
  */
 
-public abstract class AbsCard implements Serializable {
+public abstract class AbsCard {
 
     protected int number;
 
@@ -15,11 +13,11 @@ public abstract class AbsCard implements Serializable {
     protected String power;
 
 
-    public void setNumber(int number) {
+    protected void setNumber(int number) {
         this.number = number;
     }
 
-    public void setColor(int color) {
+    protected void setColor(int color) {
         this.color = color;
     }
 
@@ -31,12 +29,14 @@ public abstract class AbsCard implements Serializable {
         return color;
     }
 
-    public boolean isWild() {
+    public String getPower() {
+        return power;
+    }
+
+    public boolean isSpecial() {
         return false;
     }
 
-    public boolean isSpecial(){
-        return false;
-    }
+
 
 }

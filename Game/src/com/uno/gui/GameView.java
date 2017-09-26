@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static gui.CardManager.setCardImage;
+
 /**
  * Created by ${gaboq} on 25/9/2017.
  */
@@ -13,7 +15,7 @@ import java.awt.image.BufferedImage;
 public class GameView {
 
     public static ImageIcon generateCardIcon(AbsCard card) {
-        ImageIcon img = new ImageIcon(card.setCardImage(card));
+        ImageIcon img = new ImageIcon(setCardImage(card));
         Image resizedImg = MainLayout.getScaledImage(img.getImage(), 156, 229);
         img = new ImageIcon(resizedImg);
         return img;

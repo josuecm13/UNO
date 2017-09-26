@@ -19,6 +19,9 @@ public class CardManager extends JComponent implements MouseListener {
     private static final int   TABLE_WIDTH = 1460;
     private static final int   TABLE_HEIGHT = 930;
 
+    private static final String[] cards = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+    private static final String[] colors = {"_red", "_green", "_yellow", "_blue", ""};
+
     private ArrayList<CardGUI> deck;
     private CardGUI card;
     private CardGUI currentCard = null;
@@ -51,6 +54,23 @@ public class CardManager extends JComponent implements MouseListener {
             placeDeck(deck);
             repaint();
         }
+    }
+
+    public static String setCardImage(AbsCard card) {
+
+        String cardStr;
+        int color = card.getColor();
+        if(!card.isSpecial()) {
+            cardStr = setImageNumber(card) + colors[color];
+        } else {
+            cardStr = card.getPower() + colors[color];
+        }
+        return "res/" + cardStr + ".png";
+    }
+
+    private static String setImageNumber(AbsCard card) {
+        int number = card.getNumber();
+        return cards[number];
     }
 
     public static void placeDeck(ArrayList<CardGUI> hand) {
