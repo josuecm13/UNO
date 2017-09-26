@@ -1,7 +1,5 @@
-package gui;
+package com.uno.gui;
 
-import card.AbsCard;
-import card.CardFactory;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,7 +11,7 @@ import java.util.ArrayList;
 import static gui.CardManager.placeDeck;
 
 
-public class MainLayout extends GameView{
+public class MainLayout extends gui.GameView {
 
     //=================================================================== fields
     private ArrayList<CardGUI> hand = new ArrayList<>();
@@ -57,7 +55,7 @@ public class MainLayout extends GameView{
         for (int face=0; face < cardNumb; face++) {
             AbsCard card = CardFactory.getCard();
             ImageIcon img = generateCardIcon(card);
-            CardGUI cardGUI = new CardGUI(img, card);
+            gui.CardGUI cardGUI = new CardGUI(img, card);
             hand.add(cardGUI);
         }
         placeDeck(hand);

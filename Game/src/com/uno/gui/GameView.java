@@ -1,6 +1,6 @@
 package gui;
 
-import card.AbsCard;
+import com.uno.interfaces.AbsCard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +14,7 @@ public class GameView {
 
     public static ImageIcon generateCardIcon(AbsCard card) {
         ImageIcon img = new ImageIcon(card.setCardImage(card));
-        Image resizedImg = MainLayout.getScaledImage(img.getImage(), 156, 229);
+        Image resizedImg = gui.MainLayout.getScaledImage(img.getImage(), 156, 229);
         img = new ImageIcon(resizedImg);
         return img;
     }
