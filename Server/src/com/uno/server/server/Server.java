@@ -1,8 +1,8 @@
 package com.uno.server.server;
 
-import com.uno.cards.AbsCard;
-import com.uno.cards.CardFactory;
+import com.uno.interfaces.AbsCard;
 import com.uno.interfaces.IServer;
+import com.uno.server.card.CardFactory;
 import com.uno.server.players.Player;
 
 import javax.activity.InvalidActivityException;
@@ -41,11 +41,6 @@ public class Server extends UnicastRemoteObject implements IServer, Serializable
     }
 
     @Override
-    public AbsCard getCard() throws RemoteException {
-        return CardFactory.getCard();
-    }
-
-    @Override
     public boolean validateMove(AbsCard card)throws RemoteException {
         if(card.isWild())
             return true;
@@ -63,14 +58,11 @@ public class Server extends UnicastRemoteObject implements IServer, Serializable
     }
 
     @Override
-    public AbsCard pushCard(AbsCard card) throws RemoteException {
-        if(validateMove(card)) {
+    public void pushCard(AbsCard card) throws RemoteException {
+        if(validateMove(card))
             topCard = card;
-            return null;
-        }
-        else{
-            return card;
-        }
+        else
+            throw new InvalidActivityException("Carta invalida");
     }
 
     //IServer
@@ -114,11 +106,4 @@ public class Server extends UnicastRemoteObject implements IServer, Serializable
         }
         return result;
     }
-
-    @Override
-    public AbsCard getTopCard() throws RemoteException {
-        return topCard;
-    }
-
-
 }

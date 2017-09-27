@@ -1,67 +1,56 @@
-package com.uno.gui;
+package gui;
 
-import com.uno.cards.AbsCard;
+import card.AbsCard;
+import card.CardFactory;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
+
+/**
+ * Created by ${gaboq} on 24/9/2017.
+ */
+
 public class CardManager extends JComponent implements MouseListener {
 
     private static final Color BACKGROUND_COLOR = Color.decode("#CC0000");
-
-    private static final String[] cards = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
-    private static final String[] colors = {"_red", "_green", "_yellow", "_blue", ""};
+    private static final int   TABLE_WIDTH = 1460;
+    private static final int   TABLE_HEIGHT = 930;
 
     private ArrayList<CardGUI> deck;
-    private CardGUI currentCard = null;
     private CardGUI card;
-    private MainLayout layout;
+    private CardGUI currentCard = null;
 
-    public CardManager(ArrayList<CardGUI> cards, MainLayout layout) {
+    CardManager(ArrayList<CardGUI> cards, CardGUI cardAux) {
         deck = cards;
-        this.layout = layout;
+        card = cardAux;
+        setPreferredSize(new Dimension(TABLE_WIDTH, TABLE_HEIGHT));
+        setBackground(Color.blue);
         addMouseListener(this);
     }
 
-    public void processCard() throws Exception {
+    private void processCard() {
+        CardGUI aux;
         if (currentCard != null) {
             int index = deck.indexOf(currentCard);
-            this.card = deck.remove(index);
-            CardGUI cardGUITemp = getCard();
-            AbsCard card = cardGUITemp.getCard();
-            AbsCard newCar = layout.sendCard(card);
-            if(newCar == null) {
-                layout.setTopCard();
+            aux = deck.get(index);
+            deck.remove(index);
+            /*====================================================
+            if(movePosible(card.getCard() , aux.getCard())) {
+                aux = ;
+                card = aux;
+                repaint();
             } else {
-                deck.add(cardGUITemp);
+                JDialog d = new JDialog();
+                d.setLocationRelativeTo(this);
+                d.setVisible(true);
             }
+            ====================================================*/
             placeDeck(deck);
             repaint();
         }
-    }
-
-    public CardGUI getCard() {
-        return card;
-    }
-
-    public static String setCardImage(AbsCard card) {
-
-        String cardStr;
-        int color = card.getColor();
-        if(!card.isSpecial()) {
-            cardStr = setImageNumber(card) + colors[color];
-        } else {
-            cardStr = card.getPower() + colors[color];
-        }
-        return "res/" + cardStr + ".png";
-    }
-
-    private static String setImageNumber(AbsCard card) {
-        int number = card.getNumber();
-        return cards[number];
     }
 
     public static void placeDeck(ArrayList<CardGUI> hand) {
@@ -102,7 +91,7 @@ public class CardManager extends JComponent implements MouseListener {
         int height = getHeight();
         g.setColor(BACKGROUND_COLOR);
         g.fillRect(0, 0, width, height);
-        //ard.draw(g, this);
+
         for (CardGUI c : deck) {
             c.draw(g, this);
         }
@@ -115,14 +104,8 @@ public class CardManager extends JComponent implements MouseListener {
         for (int crd=deck.size()-1; crd>=0; crd--) {
             CardGUI testCard = deck.get(crd);
             if (testCard.contains(x, y)) {
-                currentCard = testCard;
-                try {
-                    processCard();
-                } catch (RemoteException e1) {
-                    e1.printStackTrace();
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
+                currentCard = testCard;  // Remember what we're dragging.
+                processCard();
                 System.out.println("carta");
                 break;
             }
@@ -139,5 +122,4 @@ public class CardManager extends JComponent implements MouseListener {
     public void mouseExited(MouseEvent e) {
         currentCard = null;
     }
-
 }

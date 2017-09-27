@@ -1,10 +1,9 @@
-package com.uno.gui;
+package gui;
 
+import card.AbsCard;
 
-import com.uno.cards.AbsCard;
-
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 
 public class CardGUI {
@@ -45,6 +44,16 @@ public class CardGUI {
     //================================================================ getHeight
     public int getHeight() {
         return _image.getIconHeight();
+    }
+
+    //===================================================================== getX
+    public int getX() {
+        return _x;
+    }
+
+    //===================================================================== getY
+    public int getY() {
+        return _x;
     }
 
     //===================================================================== draw

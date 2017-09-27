@@ -1,36 +1,20 @@
-package com.uno.gui;
+package gui;
 
-<<<<<<< HEAD
 import com.uno.interfaces.AbsCard;
-=======
-
-import com.uno.cards.AbsCard;
->>>>>>> 423d512995073ef7dd29bc2299dd4ad5d2b58bf5
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
-
-import static com.uno.gui.CardManager.setCardImage;
-
 
 /**
  * Created by ${gaboq} on 25/9/2017.
  */
 
-public abstract class GameView {
-
+public class GameView {
 
     public static ImageIcon generateCardIcon(AbsCard card) {
-<<<<<<< HEAD
         ImageIcon img = new ImageIcon(card.setCardImage(card));
         Image resizedImg = gui.MainLayout.getScaledImage(img.getImage(), 156, 229);
-=======
-        ImageIcon img = new ImageIcon(setCardImage(card));
-        Image resizedImg = getScaledImage(img.getImage(), 156, 229);
->>>>>>> 423d512995073ef7dd29bc2299dd4ad5d2b58bf5
         img = new ImageIcon(resizedImg);
         return img;
     }
@@ -44,42 +28,21 @@ public abstract class GameView {
         return resizedImg;
     }
 
-    static void setButtonProps(JButton btn, ImageIcon img) {
+    static GridBagConstraints setButtonProps(JButton btn, ImageIcon img) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         btn.setIcon(img);
         btn.setOpaque(false);
         btn.setFocusPainted(false);
         btn.setContentAreaFilled(false);
         btn.setBorderPainted(false);
+        return gbc;
     }
-
-    public void displayMessage(JFrame frame, String message) {
-        JOptionPane.showMessageDialog(frame, message);
-    }
-
-    protected JFrame initFrame(String name) {
-        JFrame window = new JFrame(name);
-        window.setPreferredSize(new Dimension(1460, 950));
-        ImageIcon img_icon = new ImageIcon("res/uno_icon.png");
-        window.setIconImage(img_icon.getImage());
-        window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        window.setResizable(false);
-        window.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent windowEvent) {
-                if (JOptionPane.showConfirmDialog(window, "Desea cerrar la aplicacion?", "Cerrar programa", JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-                    System.exit(0);
-                }
-            }
-        });
-        //window.setLocationRelativeTo(null);
-        return window;
-    }
-
-    protected abstract void setComponents(JFrame window) throws Exception;
 
 
     //===================== Main ========================
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         new MainLayout();
     }
 
