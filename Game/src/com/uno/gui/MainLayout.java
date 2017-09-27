@@ -1,59 +1,52 @@
 package com.uno.gui;
+<<<<<<< HEAD
+=======
+
+
+import com.uno.cards.AbsCard;
+import com.uno.client.Controller;
+>>>>>>> 423d512995073ef7dd29bc2299dd4ad5d2b58bf5
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import static gui.CardManager.placeDeck;
+import static com.uno.gui.CardManager.placeDeck;
 
 
 public class MainLayout extends gui.GameView {
 
-    //=================================================================== fields
+    private Controller controller;
+    private CardManager cardManager;
     private ArrayList<CardGUI> hand = new ArrayList<>();
-    public static CardGUI card;
 
-    //============================================================== Images
+    private JLabel lbl;
+    private JButton drawButton;
+    private JButton btn;
+
     private ImageIcon backCard = new ImageIcon("res/back.png");
     private ImageIcon UNObtn = new ImageIcon("res/botnUNO.png");
     private ImageIcon orientImgInv = new ImageIcon("res/rotateImgInv.png");
     private ImageIcon orientImg = new ImageIcon("res/rotateImg.png");
 
     //============================================================== constructor
-    public MainLayout() {
+    public MainLayout() throws Exception{
+        this.controller = new Controller();
         generateDeck(7);
-        JFrame window = new JFrame("UNO");
-        ImageIcon img_icon = new ImageIcon("res/uno_icon.png");
-        window.setIconImage(img_icon.getImage());
-        window.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        //window.setResizable(false);
-        window.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent windowEvent) {
-                if (JOptionPane.showConfirmDialog(window, "Desea cerrar la aplicacion?", "Cerrar programa", JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-                    System.exit(0);
-                }
-            }
-        });
-        window.setContentPane(new CardManager(hand, card));
-        window.add(new CardManager(hand, card));
-        window.setLayout(new GridBagLayout());
-        setDrawButton(window);
-        setUNOButton(window);
+        this.cardManager = new CardManager(hand, this);
+        JFrame window = initFrame("UNO");
+        setComponents(window);
         window.pack();
-        window.setLocationRelativeTo(null);
         window.setVisible(true);
     }
 
-    //================================================================
-    private void generateDeck(int cardNumb) {
+    private void generateDeck(int cardNumb) throws Exception {
         for (int face=0; face < cardNumb; face++) {
-            AbsCard card = CardFactory.getCard();
+            AbsCard card = controller.getCard();
             ImageIcon img = generateCardIcon(card);
             gui.CardGUI cardGUI = new CardGUI(img, card);
             hand.add(cardGUI);
@@ -61,8 +54,8 @@ public class MainLayout extends gui.GameView {
         placeDeck(hand);
     }
 
-    private void drawCard(JFrame frame) {
-        AbsCard card = CardFactory.getCard();
+    private void drawCard(JFrame frame) throws Exception {
+        AbsCard card = controller.drawCard();
         ImageIcon img = generateCardIcon(card);
         CardGUI cardGUI = new CardGUI(img, card);
         hand.add(cardGUI);
@@ -71,35 +64,63 @@ public class MainLayout extends gui.GameView {
     }
 
     private void setDrawButton(JFrame frame) {
-        JButton drawButton;
         drawButton = new JButton("");
         ImageIcon img = new ImageIcon(getScaledImage(backCard.getImage(), 177, 249));
-        GridBagConstraints gbc = setButtonProps(drawButton, img);
+        setButtonProps(drawButton, img);
+        drawButton.setBorder( new EmptyBorder( 16, 90, 16, 16 ) );
         drawButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                drawCard(frame);
+                try {
+                    drawCard(frame);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
                 System.out.println(hand.size());
             }
         });
-        frame.add(drawButton, gbc);
     }
 
     private void setUNOButton(JFrame frame) {
-        JButton btn;
         btn = new JButton("");
         ImageIcon img = new ImageIcon(getScaledImage(UNObtn.getImage(), 249, 249));
-        GridBagConstraints gbc = setButtonProps(btn, img);
+        setButtonProps(btn, img);
         btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if(hand.size() == 1)
                     System.exit(0);
             }
         });
-        frame.add(btn, gbc);
     }
 
-    private void setOrientatonLabel(JFrame frame) {
-        JLabel lbl;
+    public AbsCard sendCard(AbsCard card) throws RemoteException {
+        return controller.pushCard(card);
+    }
+
+
+    public void setTopCard() throws Exception {
+        AbsCard card = controller.setTopCard();
+        ImageIcon img = generateCardIcon(card);
+        lbl = new JLabel(img);
+        lbl.setBorder(new EmptyBorder(16, 16, 16, 100));
+    }
+
+    @Override
+    protected void setComponents(JFrame window) throws Exception {
+        window.setContentPane(cardManager);
+        setDrawButton(window);
+        setUNOButton(window);
+        setTopCard();
+        window.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        window.add(drawButton, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        window.add(btn, gbc);
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        window.add(lbl, gbc);
     }
 
 }

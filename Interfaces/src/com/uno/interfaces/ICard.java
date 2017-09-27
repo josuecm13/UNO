@@ -1,5 +1,7 @@
 package com.uno.interfaces;
 
+import com.uno.cards.AbsCard;
+
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -9,7 +11,7 @@ import java.rmi.RemoteException;
 
 public interface ICard extends Remote {
 
-    AbsCard generateCard(int userID) throws Exception;
+    AbsCard getCard() throws  RemoteException;
 
     boolean validateMove(AbsCard card) throws RemoteException;
 
@@ -17,6 +19,6 @@ public interface ICard extends Remote {
 
     boolean validateNumber(AbsCard card) throws RemoteException;
 
-    void pushCard(AbsCard card) throws RemoteException;
+    AbsCard pushCard(AbsCard card) throws RemoteException;
 
 }
