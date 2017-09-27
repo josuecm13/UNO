@@ -41,6 +41,11 @@ public class Server extends UnicastRemoteObject implements IServer, Serializable
     }
 
     @Override
+    public AbsCard getCard() throws RemoteException {
+        return CardFactory.getCard();
+    }
+
+    @Override
     public boolean validateMove(AbsCard card)throws RemoteException {
         if(card.isWild())
             return true;
@@ -58,11 +63,14 @@ public class Server extends UnicastRemoteObject implements IServer, Serializable
     }
 
     @Override
-    public void pushCard(AbsCard card) throws RemoteException {
-        if(validateMove(card))
+    public AbsCard pushCard(AbsCard card) throws RemoteException {
+        if(validateMove(card)) {
             topCard = card;
-        else
-            throw new InvalidActivityException("Carta invalida");
+            return null;
+        }
+        else{
+            return card;
+        }
     }
 
     //IServer
@@ -106,4 +114,11 @@ public class Server extends UnicastRemoteObject implements IServer, Serializable
         }
         return result;
     }
+
+    @Override
+    public AbsCard getTopCard() throws RemoteException {
+        return topCard;
+    }
+
+
 }

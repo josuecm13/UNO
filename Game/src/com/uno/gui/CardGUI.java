@@ -47,16 +47,6 @@ public class CardGUI {
         return _image.getIconHeight();
     }
 
-    //===================================================================== getX
-    public int getX() {
-        return _x;
-    }
-
-    //===================================================================== getY
-    public int getY() {
-        return _x;
-    }
-
     //===================================================================== draw
     public void draw(Graphics g, Component c) {
         _image.paintIcon(c, g, _x, _y);

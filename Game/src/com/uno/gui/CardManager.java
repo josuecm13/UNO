@@ -6,54 +6,45 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
-
-
-/**
- * Created by ${gaboq} on 24/9/2017.
- */
-
 public class CardManager extends JComponent implements MouseListener {
 
     private static final Color BACKGROUND_COLOR = Color.decode("#CC0000");
-    private static final int   TABLE_WIDTH = 1460;
-    private static final int   TABLE_HEIGHT = 930;
 
     private static final String[] cards = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
     private static final String[] colors = {"_red", "_green", "_yellow", "_blue", ""};
 
     private ArrayList<CardGUI> deck;
-    private CardGUI card;
     private CardGUI currentCard = null;
+    private CardGUI card;
+    private MainLayout layout;
 
-    public CardManager(ArrayList<CardGUI> cards, CardGUI cardAux) {
+    public CardManager(ArrayList<CardGUI> cards, MainLayout layout) {
         deck = cards;
-        card = cardAux;
-        setPreferredSize(new Dimension(TABLE_WIDTH, TABLE_HEIGHT));
-        setBackground(Color.blue);
+        this.layout = layout;
         addMouseListener(this);
     }
 
-    private void processCard() {
-        CardGUI aux;
+    public void processCard() throws Exception {
         if (currentCard != null) {
             int index = deck.indexOf(currentCard);
-            aux = deck.get(index);
-            deck.remove(index);
-            /*====================================================
-            if(movePosible(card.getCard() , aux.getCard())) {
-                aux = ;
-                card = aux;
-                repaint();
+            this.card = deck.remove(index);
+            CardGUI cardGUITemp = getCard();
+            AbsCard card = cardGUITemp.getCard();
+            AbsCard newCar = layout.sendCard(card);
+            if(newCar == null) {
+                layout.setTopCard();
             } else {
-                JDialog d = new JDialog();
-                d.setLocationRelativeTo(this);
-                d.setVisible(true);
+                deck.add(cardGUITemp);
             }
-            ====================================================*/
             placeDeck(deck);
             repaint();
         }
+    }
+
+    public CardGUI getCard() {
+        return card;
     }
 
     public static String setCardImage(AbsCard card) {
@@ -124,8 +115,14 @@ public class CardManager extends JComponent implements MouseListener {
         for (int crd=deck.size()-1; crd>=0; crd--) {
             CardGUI testCard = deck.get(crd);
             if (testCard.contains(x, y)) {
-                currentCard = testCard;  // Remember what we're dragging.
-                processCard();
+                currentCard = testCard;
+                try {
+                    processCard();
+                } catch (RemoteException e1) {
+                    e1.printStackTrace();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
                 System.out.println("carta");
                 break;
             }
